@@ -1,4 +1,12 @@
-import { Project } from "@/types/project";
+import { 
+  Project, 
+  Sprint, 
+  Task, 
+  Issue, 
+  TeamMember, 
+  Release, 
+  ActivityLog 
+} from "@/types/project";
 
 // Initial Seed Data
 const INITIAL_MOCK_PROJECTS: Project[] = [
@@ -39,13 +47,32 @@ const INITIAL_MOCK_PROJECTS: Project[] = [
 declare global {
   // eslint-disable-next-line no-var
   var __mockDb: Project[] | undefined;
+  // eslint-disable-next-line no-var
+  var __mockSprints: Sprint[] | undefined;
+  // eslint-disable-next-line no-var
+  var __mockTasks: Task[] | undefined;
+  // eslint-disable-next-line no-var
+  var __mockIssues: Issue[] | undefined;
+  // eslint-disable-next-line no-var
+  var __mockTeamMembers: TeamMember[] | undefined;
+  // eslint-disable-next-line no-var
+  var __mockReleases: Release[] | undefined;
+  // eslint-disable-next-line no-var
+  var __mockActivityLogs: ActivityLog[] | undefined;
 }
 
 if (!global.__mockDb) {
   global.__mockDb = [...INITIAL_MOCK_PROJECTS];
+  global.__mockSprints = [];
+  global.__mockTasks = [];
+  global.__mockIssues = [];
+  global.__mockTeamMembers = [];
+  global.__mockReleases = [];
+  global.__mockActivityLogs = [];
 }
 
 export const mockDb = {
+  // Projects
   getProjects: () => [...global.__mockDb!],
   addProject: (p: Project) => {
     global.__mockDb!.push(p);
@@ -62,5 +89,23 @@ export const mockDb = {
     if (index !== -1) {
       global.__mockDb![index] = { ...global.__mockDb![index], status: 'ARCHIVED', updated_at: new Date().toISOString() };
     }
-  }
+  },
+
+  // Sprints
+  getSprints: (projectId: string) => global.__mockSprints!.filter(s => s.project_id === projectId),
+  
+  // Tasks
+  getTasks: (projectId: string) => global.__mockTasks!.filter(t => t.project_id === projectId),
+
+  // Issues
+  getIssues: (projectId: string) => global.__mockIssues!.filter(i => i.project_id === projectId),
+
+  // Team Members
+  getTeamMembers: (projectId: string) => global.__mockTeamMembers!.filter(tm => tm.project_id === projectId),
+
+  // Releases
+  getReleases: (projectId: string) => global.__mockReleases!.filter(r => r.project_id === projectId),
+
+  // Activity Logs
+  getActivityLogs: (projectId: string) => global.__mockActivityLogs!.filter(a => a.project_id === projectId),
 };

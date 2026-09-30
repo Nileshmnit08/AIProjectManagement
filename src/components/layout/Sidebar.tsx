@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Target, Activity, Settings, Users, GitBranch } from "lucide-react";
+import { LayoutDashboard, Target } from "lucide-react";
 
 export function Sidebar() {
   return (
@@ -15,6 +15,7 @@ export function Sidebar() {
           <LayoutDashboard className="w-5 h-5 text-indigo-400" />
           <span className="font-medium">Projects</span>
         </Link>
+        {/* Temporarily hidden until Global Views are implemented
         <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors hover:bg-slate-800 hover:text-white">
           <Activity className="w-5 h-5" />
           <span className="font-medium">Sprints</span>
@@ -27,12 +28,15 @@ export function Sidebar() {
           <Users className="w-5 h-5" />
           <span className="font-medium">Teams</span>
         </Link>
+        */}
       </nav>
       <div className="p-4 border-t border-slate-800">
+        {/* 
         <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors hover:bg-slate-800 hover:text-white">
           <Settings className="w-5 h-5" />
           <span className="font-medium">Settings</span>
         </Link>
+        */}
       </div>
     </aside>
   );

@@ -116,11 +116,37 @@ export default async function ProjectsRegistry({ searchParams }: { searchParams:
 
       <ProjectFilters />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      {projects.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      ) : (
+        <Card className="border-dashed border-2 border-slate-200 bg-slate-50/50 shadow-none">
+          <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+              <Briefcase className="w-8 h-8 text-slate-400" />
+            </div>
+            <h3 className="text-xl font-medium text-slate-900 mb-2">
+              {searchParams.q || searchParams.status || searchParams.health 
+                ? "No projects match your filters" 
+                : "No projects created yet"}
+            </h3>
+            <p className="text-slate-500 mb-6 max-w-md">
+              {searchParams.q || searchParams.status || searchParams.health 
+                ? "Try adjusting your search query or removing filters to see more results." 
+                : "Create your first project to start managing sprints, tasks, and teams."}
+            </p>
+            {!(searchParams.q || searchParams.status || searchParams.health) && (
+              <div className="pointer-events-none">
+                {/* The actual Add button is in the header, we can just point to it or duplicate it here. We'll duplicate it for UX. */}
+                <AddProjectDialog />
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
